@@ -103,4 +103,20 @@ describe('Game', function() {
     testGame.board.space33.markBy(testPlayer1)
     expect(testGame.winner()).to.equal(testPlayer1)
   });
+
+  it('determines if there is a tie', function() {
+    var testPlayer1 = new Player("Prince", "X");
+    var testPlayer2 = new Player("Grandma", "O");
+    var testGame = new Game(testPlayer1, testPlayer2);
+    testGame.board.space11.markBy(testPlayer1)
+    testGame.board.space21.markBy(testPlayer2)
+    testGame.board.space31.markBy(testPlayer1)
+    testGame.board.space12.markBy(testPlayer2)
+    testGame.board.space22.markBy(testPlayer1)
+    testGame.board.space32.markBy(testPlayer1)
+    testGame.board.space13.markBy(testPlayer2)
+    testGame.board.space23.markBy(testPlayer1)
+    testGame.board.space33.markBy(testPlayer2)
+    expect(testGame.winner()).to.equal(false)
+  });
 });

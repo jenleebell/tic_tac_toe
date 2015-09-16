@@ -68,6 +68,7 @@ Game.prototype.winner = function() {
   var yChecker2 = this.player2.yCoords.toString().split(",").join("");
   var spaceChecker1 = this.player1.spaces
   var spaceChecker2 = this.player2.spaces
+  var allSpaces = spaceChecker1.concat(spaceChecker2)
 
   if ((/1{3}|2{3}|3{3}/).exec(xChecker1) >= 3) {
     return this.player1;
@@ -85,6 +86,8 @@ Game.prototype.winner = function() {
     return this.player1;
   } else if ((spaceChecker2.indexOf(this.board.space13) !== -1) && (spaceChecker2.indexOf(this.board.space22) !== -1) && (spaceChecker2.indexOf(this.board.space31) !== -1)) {
     return this.player2;
+  } else if (allSpaces.length === 9) {
+    return false
   } else {
     return null;
   }
