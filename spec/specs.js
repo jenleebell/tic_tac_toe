@@ -20,6 +20,28 @@ describe('Space', function() {
     testSpace.markBy(testPlayer);
     expect(testSpace.player).to.equal(testPlayer);
   });
+  it("does not allow an already marked space to be marked again", function() {
+    var testPlayer = new Player("Prince", "X")
+    var testPlayer2 = new Player("Grandma", "O");
+    var testSpace = new Space(1,2);
+    testSpace.markBy(testPlayer);
+    testSpace.markBy(testPlayer2);
+    expect(testSpace.player).to.equal(testPlayer);
+  });
+  it("pushes a marked space into the player's marked spaces array", function() {
+    var testPlayer = new Player("Prince", "X")
+    var testPlayer2 = new Player("Grandma", "O");
+    var testSpace = new Space(1,2);
+    testSpace.markBy(testPlayer);
+    expect(testPlayer.spaces).to.eql([testSpace])
+  });
+  it("pushes a marked space into the player's marked xcoords array", function() {
+    var testPlayer = new Player("Prince", "X")
+    var testPlayer2 = new Player("Grandma", "O");
+    var testSpace = new Space(1,2);
+    testSpace.markBy(testPlayer);
+    expect(testPlayer.xCoords).to.eql([testSpace.xCoord])
+  });
 });
 
 describe('Board', function() {
@@ -50,5 +72,35 @@ describe('Game', function() {
     var testGame = new Game(testPlayer1, testPlayer2);
     testGame.changeTurn();
     expect(testGame.turn).to.equal(testPlayer2);
+  });
+
+  it('determines if there is a winner vertically', function() {
+    var testPlayer1 = new Player("Prince", "X");
+    var testPlayer2 = new Player("Grandma", "O");
+    var testGame = new Game(testPlayer1, testPlayer2);
+    testGame.board.space11.markBy(testPlayer1)
+    testGame.board.space12.markBy(testPlayer1)
+    testGame.board.space13.markBy(testPlayer1)
+    expect(testGame.winner()).to.equal(testPlayer1)
+  });
+
+  it('determines if there is a winner horizontally', function() {
+    var testPlayer1 = new Player("Prince", "X");
+    var testPlayer2 = new Player("Grandma", "O");
+    var testGame = new Game(testPlayer1, testPlayer2);
+    testGame.board.space23.markBy(testPlayer1)
+    testGame.board.space13.markBy(testPlayer1)
+    testGame.board.space33.markBy(testPlayer1)
+    expect(testGame.winner()).to.equal(testPlayer1)
+  });
+
+  it('determines if there is a winner diagonally', function() {
+    var testPlayer1 = new Player("Prince", "X");
+    var testPlayer2 = new Player("Grandma", "O");
+    var testGame = new Game(testPlayer1, testPlayer2);
+    testGame.board.space11.markBy(testPlayer1)
+    testGame.board.space22.markBy(testPlayer1)
+    testGame.board.space33.markBy(testPlayer1)
+    expect(testGame.winner()).to.equal(testPlayer1)
   });
 });
