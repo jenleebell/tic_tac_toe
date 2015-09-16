@@ -11,6 +11,8 @@ function Space(xCoord, yCoord) {
   this.yCoord = yCoord;
 }
 
+// the markBy method will only mark a space if it hasn't been marked yet
+
 Space.prototype.markBy = function(player) {
   if (this.player === undefined) {
     this.player = player;
@@ -72,14 +74,17 @@ Game.prototype.winner = function() {
 
   if ((/1{3}|2{3}|3{3}/).exec(xChecker1) >= 3) {
     return this.player1;
+    // checks to see if there are 3 vertical spaces marked by one player
   } else if ((/1{3}|2{3}|3{3}/).exec(xChecker2) >= 3) {
     return this.player2;
   } else if ((/1{3}|2{3}|3{3}/).exec(yChecker1) >= 3) {
     return this.player1;
+    // checks to see if there are 3 horizontal spaces marked by one player
   } else if ((/1{3}|2{3}|3{3}/).exec(yChecker2) >= 3) {
     return this.player2;
   } else if ((spaceChecker1.indexOf(this.board.space11) !== -1) && (spaceChecker1.indexOf(this.board.space22) !== -1) && (spaceChecker1.indexOf(this.board.space33) !== -1)) {
     return this.player1;
+    // checks to see if there are 3 diagonal spaces marked by one player
   } else if ((spaceChecker2.indexOf(this.board.space11) !== -1) && (spaceChecker2.indexOf(this.board.space22) !== -1) && (spaceChecker2.indexOf(this.board.space33) !== -1)) {
     return this.player2;
   } else if ((spaceChecker1.indexOf(this.board.space13) !== -1) && (spaceChecker1.indexOf(this.board.space22) !== -1) && (spaceChecker1.indexOf(this.board.space31) !== -1)) {
@@ -88,6 +93,7 @@ Game.prototype.winner = function() {
     return this.player2;
   } else if (allSpaces.length === 9) {
     return false
+    // checks to see if all spaces have been marked
   } else {
     return null;
   }
