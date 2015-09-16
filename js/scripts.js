@@ -25,3 +25,20 @@ function Board() {
   var spaces = [space11,space21,space31,space12,space22,space32,space31,space32,space33];
   this.spaces = spaces;
 }
+
+function Game(player1, player2) {
+  this.player1 = player1
+  this.player2 = player2
+  var board = new Board()
+  this.board = board
+  this.turn = player1
+}
+
+Game.prototype.changeTurn = function() {
+  if (this.turn = this.player1) {
+    this.turn = this.player2
+  }
+  else {
+    this.turn = this.player1
+  }
+}
