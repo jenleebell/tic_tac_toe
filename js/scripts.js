@@ -98,3 +98,58 @@ Game.prototype.winner = function() {
     return null;
   }
 }
+
+$(document).ready(function() {
+  $("form#player2-piece").hide();
+  $("#game").hide();
+  $("#click-to-play").hide()
+  $("#player1-turn").hide();
+  $("#player2-turn").hide();
+
+  var player1 = new Player(null, null)
+  var player2 = new Player(null, null)
+  var game = new Game(null, null)
+
+  $("form#player1-piece").submit(function(event){
+    event.preventDefault()
+
+    var player1Name = $("input#player1Name").val();
+    var player1Character = $(".player1Character:selected").val();
+    player1.name = player1Name;
+    player1.mark = player1Character;
+
+    $("form#player1-piece").hide()
+    $("form#player2-piece").show()
+
+  });
+
+  $("form#player2-piece").submit(function(event){
+    event.preventDefault()
+
+    var player2Name = $("input#player2Name").val();
+    var player2Character = $("input#player2Character").val();
+    player2.name = player2Name;
+    player2.mark = player2Character;
+
+    $("form#player2-piece").hide()
+    $("#click-to-play").show()
+
+  });
+
+  $("#click-to-play").click(function() {
+    $("#click-to-play").hide();
+    $("#game").show();
+    game.player1 = player1
+    game.player2 = player2
+    $("#player1-turn").show();
+    $("#player1-name").text(player1.name);
+  });
+
+  $("#space11").click(function() {
+    var player = game.turn
+    game.board.space11.markBy(player);
+    $("#space11").append('<img src="img/' + player.mark + '">');
+    game.changeTurn();
+  });
+
+});
